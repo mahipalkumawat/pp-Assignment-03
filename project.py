@@ -1,8 +1,9 @@
 import numpy as np
 
 # User data: Names and Initial Balances
-users = ['Hemant', 'Prajval', 'Badal']
+users = ['mahipal', 'Hemant', 'Bhavesh']
 balances = np.array([5000, 7000, 6000])  # Initial balance for each user
+
 def get_user_index(name):
     if name in users:
         return users.index(name)
@@ -37,7 +38,7 @@ def withdraw(user_index, amount):
 # Main Menu
 def main_menu(user_index):
     while True:
-        print(f"\n===== 🏦 WELCOME {users[user_index]} 🏦 =====")
+        print(f"\n===== 🏦 WELCOME {users[user_index].upper()} 🏦 =====")
         print("1. Check Balance")
         print("2. Credit (Deposit) Money")
         print("3. Withdraw Money")
@@ -57,7 +58,7 @@ def main_menu(user_index):
             withdraw(user_index, amount)
         
         elif choice == '4':
-            print(f"\nExiting... Thank you {users[user_index]} for using our services!")
+            print(f"\nExiting... Thank you {users[user_index].capitalize()} for using our services!")
             break
         
         else:
@@ -66,13 +67,13 @@ def main_menu(user_index):
 # Start the system
 def start():
     print("===== MULTI-USER BANK MANAGEMENT SYSTEM =====")
-    name = input("\nEnter your name (Hemant, Prajval, Badal): ").capitalize()
+    print(f"Available Users: {', '.join(users)}")
+    name = input("\nEnter your name: ").strip().lower()
     
-    # Get user index
-    user_index = get_user_index(name)
-    
-    if user_index != -1:
-        print(f"\nWelcome, {name}!")
+    normalized_users = [user.lower() for user in users]
+    if name in normalized_users:
+        user_index = normalized_users.index(name)
+        print(f"\nWelcome, {users[user_index].capitalize()}!")
         main_menu(user_index)
     else:
         print("\nUser not found! Please enter a valid name.")
